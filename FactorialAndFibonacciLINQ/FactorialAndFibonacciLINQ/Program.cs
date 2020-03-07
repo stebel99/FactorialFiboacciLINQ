@@ -27,6 +27,23 @@ Input number: ");
                 {
                     continue;
                 }
+                Console.Clear();
+                Console.WriteLine("Number Fibonacci");
+                var numbers = Fibonacci().TakeWhile(x=>x<= 701408733);
+                foreach (var item in numbers)
+                {
+                    Console.WriteLine(item);
+                }
+                Console.Write("Again (Y)/(N):");
+                string again = Console.ReadLine();
+                if (again.ToUpper() == "Y")
+                {
+                    continue;
+                }
+                else 
+                {
+                    break;
+                }
             }
         }
 
@@ -43,6 +60,18 @@ Input number: ");
             }
             var result = numbers.Aggregate((x, y) => x * y);
             return result;
+        }
+        public static IEnumerable<int> Fibonacci()
+        {
+            int current = 0;
+            int next = 1;
+            for (int i = 0; i < 50; i++)
+            {
+                yield return current;
+                int temp = next;
+                next = current + next;
+                current = temp;
+            }
         }
     }
 }
