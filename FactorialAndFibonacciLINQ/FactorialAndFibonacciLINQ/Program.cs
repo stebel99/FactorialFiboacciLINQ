@@ -8,14 +8,14 @@ namespace FactorialAndFibonacciLINQ
     {
         static void Main()
         {
-            string input = "";
+            string userInput;
             for (; ; )
             {
                 Console.Clear();
                 Console.Write(@"Find Factorial
 Input number: ");
-                input = Console.ReadLine();
-                if (Int32.TryParse(input, out int result))
+                userInput = Console.ReadLine();
+                if (Int32.TryParse(userInput, out int result))
                 {
                     Console.WriteLine($@"{result}! = {Factorial(result)}");
                     Console.Write("Press any key...");
@@ -26,12 +26,22 @@ Input number: ");
                     continue;
                 }
                 Console.Clear();
-                Console.WriteLine("Number Fibonacci");
-                var numbers = Fibonacci().TakeWhile(x=>x<= 701408733);
-                foreach (var item in numbers)
+                Console.Write(@"Number Fibonacci
+Input number: ");
+                userInput = Console.ReadLine();
+                if (Int32.TryParse(userInput, out int result2))
                 {
-                    Console.WriteLine(item);
+                    var numbers = Fibonacci(result2);
+                    foreach (var item in numbers)
+                    {
+                        Console.WriteLine(item);
+                    }
                 }
+                else
+                {
+                    continue;
+                }
+
                 Console.Write("Again (Y)/(N):");
                 string again = Console.ReadLine();
                 if (again.ToUpper() == "Y")
@@ -59,11 +69,11 @@ Input number: ");
             var result = numbers.Aggregate((x, y) => x * y);
             return result;
         }
-        public static IEnumerable<int> Fibonacci()
+        public static IEnumerable<int> Fibonacci(int n)
         {
             int current = 0;
             int next = 1;
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < n; i++)
             {
                 yield return current;
                 int temp = next;
