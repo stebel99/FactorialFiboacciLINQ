@@ -34,7 +34,7 @@ Input number: ");
                                 Console.Write("Press any key...");
                                 Console.ReadKey();
                             }
-                            continue;                           
+                            continue;
                         }
                     case "2":
                         {
@@ -52,7 +52,25 @@ Input number: ");
                             }
                             Console.Write("Press any key... ");
                             Console.ReadLine();
-                             continue;                         
+                            continue;
+                        }
+                    case "3":
+                        {
+                            var phones = GetModelCollection();
+                            Console.WriteLine("All phones:");
+                            foreach (var item in phones)
+                            {
+                                Console.WriteLine(item.ToString());
+                            }
+                            Console.ReadKey();
+                            Console.WriteLine("\nPhones where color is black");
+                            var query = phones.Where(x => x.Color == Color.Black);
+                            foreach (var item in query)
+                            {
+                                Console.WriteLine(item.ToString());
+                            }
+                            Console.ReadKey();
+                            continue;
                         }
                     case "5":
                         {
@@ -89,6 +107,22 @@ Input number: ");
                 next = current + next;
                 current = temp;
             }
+        }
+        public static List<Phone> GetModelCollection()
+        {
+            List<Phone> phones = new List<Phone> {
+                new Phone{CompanyName = "Apple",Model="SE", Memory = 32,TouchScreen = true, Color = Color.Gray},
+                new Phone{CompanyName = "Apple",Model="7", Memory = 64,TouchScreen = true, Color = Color.Black},
+                new Phone{CompanyName = "Nokia",Model="X20092", Memory = 1,TouchScreen = false, Color = Color.Yellow},
+                new Phone{CompanyName = "Huawei",Model="Nova 2", Memory = 128,TouchScreen = true, Color = Color.Pink},
+                new Phone{CompanyName = "HTC",Model="U11", Memory = 128,TouchScreen = true, Color = Color.White},
+                new Phone{CompanyName = "Samsung",Model="Galaxy S10", Memory = 256,TouchScreen = true, Color = Color.White},
+                new Phone{CompanyName = "Samsung",Model="Galaxy Note 9", Memory = 256,TouchScreen = true, Color = Color.White},
+                new Phone{CompanyName = "Apple",Model="X", Memory = 512,TouchScreen = true, Color = Color.Black},
+                new Phone{CompanyName = "Xiaomi",Model="Mate X", Memory = 128,TouchScreen = true, Color = Color.Pink},
+                new Phone{CompanyName = "ASUS ",Model="ZenFone 5", Memory = 64,TouchScreen = true, Color = Color.Black}
+            };
+            return phones;
         }
     }
 }
