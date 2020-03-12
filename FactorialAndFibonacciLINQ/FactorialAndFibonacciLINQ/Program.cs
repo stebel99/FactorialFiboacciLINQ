@@ -31,9 +31,12 @@ Input number: ");
                             if (Int32.TryParse(userInput, out int result))
                             {
                                 Console.WriteLine($@"{result}! = {Factorial(result)}");
-                                Console.Write("Press any key...");
-                                Console.ReadKey();
                             }
+                            else
+                            {
+                                Console.WriteLine("Your number is invalid");
+                            }
+                            WaitUser();
                             continue;
                         }
                     case "2":
@@ -50,26 +53,52 @@ Input number: ");
                                     Console.WriteLine(item);
                                 }
                             }
-                            Console.Write("Press any key... ");
-                            Console.ReadLine();
+                            else
+                            {
+                                Console.WriteLine("Your number is invalid");
+                            }
+                            WaitUser();
                             continue;
                         }
                     case "3":
                         {
+                            Console.Clear();
                             var phones = GetModelCollection();
                             Console.WriteLine("All phones:");
                             foreach (var item in phones)
                             {
                                 Console.WriteLine(item.ToString());
                             }
-                            Console.ReadKey();
+                            WaitUser("Press any key to sort phones... ");
                             Console.WriteLine("\nPhones where color is black");
                             var query = phones.Where(x => x.Color == Color.Black);
                             foreach (var item in query)
                             {
                                 Console.WriteLine(item.ToString());
                             }
-                            Console.ReadKey();
+                            WaitUser();
+                            continue;
+                        }
+                    case "4":
+                        {
+                            Console.Clear();
+                            Console.Write("Grouping with LINQ \nInput array size: ");
+                            userInput = Console.ReadLine();
+                            if (Int32.TryParse(userInput, out int arraySize))
+                            {
+                                int[] array = GetArray(arraySize);
+                                ShowArray(array, "Array:");
+                                WaitUser("Press any key to grouping array");
+                                var sortedArray = array.Where(x => x % 2 == 0); // Even numbers
+                                ShowArray(sortedArray, "Even numbers");
+                                sortedArray = array.Where(x => x % 2 == 1); // Not even numbers
+                                ShowArray(sortedArray, "Not even numbers");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Your input is invalid");
+                            }
+                            WaitUser();
                             continue;
                         }
                     case "5":
@@ -123,6 +152,29 @@ Input number: ");
                 new Phone{CompanyName = "ASUS ",Model="ZenFone 5", Memory = 64,TouchScreen = true, Color = Color.Black}
             };
             return phones;
+        }
+        public static int[] GetArray(int arraySize)
+        {
+            int[] array = new int[arraySize];
+            for (int i = 0; i < arraySize; i++)
+            {
+                array[i] = i;
+            }
+            return array;
+        }
+        public static void ShowArray (IEnumerable<int> array, string topLineName)
+        {
+            Console.WriteLine(topLineName);
+            foreach (var item in array)
+            {
+                Console.Write($"{item} ");
+            }
+            Console.WriteLine();
+        }
+        public static void WaitUser(string information = "Press any key to continue... ")
+        {
+            Console.WriteLine(information);
+            Console.ReadKey();
         }
     }
 }
